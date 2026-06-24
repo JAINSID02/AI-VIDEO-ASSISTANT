@@ -1,0 +1,5 @@
+.env
+aivaenv/
+
+__pycache__/
+*.pyc
