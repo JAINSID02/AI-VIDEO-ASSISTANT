@@ -1,6 +1,6 @@
 import os
 from langchain_chroma import Chroma
-from langchain_mistralai import MistralAIEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
 
@@ -10,9 +10,10 @@ COLLECTION_NAME ="meeting_transcript"
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 
 def get_embeddings():
-    return MistralAIEmbeddings(
-    model="mistral-embed"
-)
+    return HuggingFaceEmbeddings(
+        model_name = EMBEDDING_MODEL,
+        model_kwargs = {"device" : 'cpu'}
+    )
 
 def build_vector_store(transcript:str)->Chroma:
     print("Building Vector Store")

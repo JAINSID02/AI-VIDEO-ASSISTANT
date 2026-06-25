@@ -27,7 +27,7 @@ def extract_action_items(transcript:str)->str:
     
     return chain.invoke(transcript)
 
-def extract_key_decision(transcript:str)->str:
+def extract_key_decisions(transcript:str)->str:
     chain=build_chain("from the meeting transcript extract key decisions made" \
     "format as a numbered list   if none found say no decisions found" \
                       

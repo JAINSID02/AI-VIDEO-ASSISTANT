@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 from utils.audio_processor import process_input
 from core.transcriber import transcribe_all
 from core.summarize import summarize , generate_title
-from core.extractor import extract_action_items, extract_key_decision , extract_questions
+from core.extractor import extract_action_items, extract_key_decisions , extract_questions
 
 from core.rag_engine import build_rag_chain , ask_question
 
@@ -17,7 +17,7 @@ def run_pipeline(source:str,language:str='english')->dict:
     title = generate_title(transcript)
     summary=summarize(transcript)
     action_item=extract_action_items(transcript)
-    key_decisions = extract_key_decision(transcript)
+    key_decisions = extract_key_decisions(transcript)
     questions=extract_questions(transcript)
     rag_chain = build_rag_chain(transcript)
 
@@ -49,7 +49,7 @@ if __name__ =="__main__":
     rag_chain=result['rag_chain']
 
     while True:
-        question=input("You").strip()
+        question=input("  You  ").strip()
         if question.lower() in ['exit'] :
             print("bye")
             break
@@ -57,5 +57,5 @@ if __name__ =="__main__":
             continue
 
         answer = ask_question(rag_chain , question)
-        print("\n   Assistant ANSWER   ", answer)
+        print("   Assistant ANSWER   ", answer)
 
