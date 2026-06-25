@@ -5,16 +5,16 @@ from langchain_core.runnables import RunnablePassthrough , RunnableLambda
 import os
 
 def get_llm() :
-    return ChatMistralAI(model="mistral-small-latest" , mistal_api_key = os.getenv("MISTRAL_API_KEY"))
+    return ChatMistralAI(model="mistral-small-latest" , mistral_api_key = os.getenv("MISTRAL_API_KEY"))
 
 def build_chain(system_prompt : str):
     llm=get_llm()
     return (RunnablePassthrough() | RunnableLambda(lambda x: {"text": x}) | ChatPromptTemplate.from_messages([
         (
-            "system" , system_prompt , 
+            "system" , system_prompt 
 
-        )
-        ("human" , {"text"})
+        ),
+        ("human" , "{text}")
     ]) | llm | StrOutputParser())
 
 def extract_action_items(transcript:str)->str:

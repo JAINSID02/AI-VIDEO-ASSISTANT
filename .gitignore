@@ -3,3 +3,6 @@ aivaenv/
 
 __pycache__/
 *.pyc
+
+downloades/
+vector_db/

@@ -17,9 +17,9 @@ SARVAM_MODEL=os.getenv("SARVAM_STT_MODEL","saaras:v2.5")
 def load_model():
     global _model 
     if _model is None :
-        print("loading model")
+        print("    loading model    ")
         _model = whisper.load_model(WHISPER_MODEL)
-        print("whisper model loaded succesfully")
+        print("    whisper model loaded succesfully    ")
     return _model
 
 def transcribe_chunk_whisper(chunk_path:str )-> str :
@@ -98,7 +98,7 @@ def transcribe_all(chunks:list , language:str = "english") -> str :
 
         full_transcript += text + " "
 
-        print("Transcription Completed")
+        print("    Transcription Completed    ")
 
-        return full_transcript.strip()
+    return full_transcript.strip()
 

@@ -7,7 +7,7 @@ from langchain_core.runnables import RunnablePassthrough , RunnableLambda
 import os
 
 def get_llm() :
-    return ChatMistralAI(model="mistral-small-latest" , mistal_api_key = os.getenv("MISTRAL_API_KEY"))
+    return ChatMistralAI(model="mistral-small-latest" , mistral_api_key = os.getenv("MISTRAL_API_KEY"))
 
 def split_transcript(transcript:str)->list :
     splitter = RecursiveCharacterTextSplitter(
@@ -41,17 +41,16 @@ def summarize(transcript : str)->str :
     ),
     ("human","{text}")])
 
-    combined_chain= (RunnablePassthrough()| RunnableLambda(lambda x:{"text": x}) | combined_prompt | llm | StrOutputParser)
+    combined_chain= (RunnablePassthrough()| RunnableLambda(lambda x:{"text": x}) | combined_prompt | llm | StrOutputParser())
 
     return combined_chain.invoke(combined)
 
 def generate_title(transcript:str)->str:
     llm=get_llm()
-    title_chain=(RunnablePassthrough | RunnableLambda(lambda x:{"text": x})| ChatPromptTemplate.from_messages([(
-        "system" , "Based in the meeting transcription , generate a short professional meeting title ",
-        "only return the title nothing else",
+    title_chain=(RunnablePassthrough() | RunnableLambda(lambda x:{"text": x})| ChatPromptTemplate.from_messages([(
+        "system" , "Based in the meeting transcription , generate a short professional meeting title only return the title nothing else"
 
-    )
+    ),
     ("human","{text}")])|llm | StrOutputParser())
 
     return title_chain.invoke(transcript[:2000])
